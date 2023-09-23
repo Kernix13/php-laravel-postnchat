@@ -1,10 +1,10 @@
 # PHP and Laravel Post and Chat App
 
--   something here
+-   coming soon...
 
 ## Setup
 
-Here ate the initial commands you will need:
+Here are the initial commands you will need:
 
 ```sh
 composer install
@@ -14,8 +14,8 @@ php artisan serve
 
 ## Contributing
 
--   something here
+-   coming soon...
 
 # Code of Conduct
 
--   something here
+-   coming soon...
