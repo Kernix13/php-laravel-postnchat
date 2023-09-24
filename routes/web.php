@@ -67,21 +67,4 @@ Route::get('admins-only', [AdminController::class, 'adminsOnly'])->middleware('c
 
 /****** CHAT ROUTES ******/
 // POST
-Route::post('/send-chat-message', function(Request $request) {
-  $formFields = $request->validate([
-    'textvalue' => 'required'
-  ]);
-
-  if (!trim(strip_tags($formFields['textvalue']))) {
-    return response()->noContent();
-  }
-
-  broadcast(new ChatMessage([
-    'username'  => auth()->user()->username, 
-    'textvalue' => strip_tags($request->textvalue), 
-    'avatar'    => auth()->user()->avatar
-  ]))->toOthers();
-
-  return response()->noContent();
-
-})->middleware('mustBeLoggedIn');
+Route::post('/send-chat-message', [ChatController::class, 'sendChatMessage'])->middleware('mustBeLoggedIn');
