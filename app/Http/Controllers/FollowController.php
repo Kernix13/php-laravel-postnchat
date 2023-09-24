@@ -4,22 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Follow;
+
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
     public function createFollow(User $user) {
-        // you cannot follow yourself:
+        // You cannot follow yourself:
         if ($user->id == auth()->user()->id) {
             return back()->with('failure', 'You cannot follow yourself.');
         }
 
-        // you cannot follow someone you are already following:
+        // You cannot follow someone you are already following:
         // returns 1 or 0
         $existCheck = Follow::where([['user_id', '=', auth()->user()->id], ['followeduser', '=', $user->id]])->count();
 
         if ($existCheck) {
-            return back()->with('failure', 'You are already following this person.');
+            return back()->with('failure', 'You are already following that user.');
         }
 
         $newfollow = new Follow;

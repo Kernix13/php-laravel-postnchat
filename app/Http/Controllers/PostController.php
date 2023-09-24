@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 use App\Jobs\SendNewPostEmail;
 // use Illuminate\Support\Facades\Mail;
 
@@ -44,7 +46,7 @@ class PostController extends Controller
         return view('single-post', ['post' => $post]);
     }
 
-    // Edit and Delete
+    // Edit and Delete Posts
     public function showEditForm(Post $post) {
         return view('edit-post', ['post' => $post]);
     }
