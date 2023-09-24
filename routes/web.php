@@ -1,8 +1,10 @@
 <?php
 
-use App\Events\ChatMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Events\ChatMessage;
+
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowController;
