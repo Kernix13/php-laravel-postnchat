@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,11 @@ use App\Http\Controllers\FollowController;
 /****** USER ROUTES ******/
 // GET
 Route::get('/', [UserController::class, "showCorrectHomePage"])->name('login');
-Route::get('/manage-avatar', [UserController::class, "showAvatarForm"])->middleware('mustBeLoggedIn');
+
 // POST
 Route::post('/register', [UserController::class, "register"])->middleware('guest');
 Route::post('/login', [UserController::class, "login"])->middleware('guest');
 Route::post('/logout', [UserController::class, "logout"])->middleware('mustBeLoggedIn');
-Route::post('/manage-avatar', [UserController::class, "storeAvatar"])->middleware('mustBeLoggedIn');
 
 /****** BLOG POST ROUTES ******/
 // GET
@@ -50,16 +50,18 @@ Route::post('/remove-follow/{user:username}', [FollowController::class, "removeF
 
 /****** PROFILE ROUTES ******/
 // GET
-Route::get('/profile/{user:username}', [UserController::class, 'profile']);
-Route::get('/profile/{user:username}/followers', [UserController::class, 'profileFollowers']);
-Route::get('/profile/{user:username}/following', [UserController::class, 'profileFollowing']);
+Route::get('/manage-avatar', [ProfileController::class, "showAvatarForm"])->middleware('mustBeLoggedIn');
+Route::get('/profile/{user:username}', [ProfileController::class, 'profile']);
+Route::get('/profile/{user:username}/followers', [ProfileController::class, 'profileFollowers']);
+Route::get('/profile/{user:username}/following', [ProfileController::class, 'profileFollowing']);
 
 Route::middleware('cache.headers:public;max_age=20;etag')->group(function () {
-  Route::get('/profile/{user:username}/raw', [UserController::class, 'profileRaw']);
-  Route::get('/profile/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw']);
-  Route::get('/profile/{user:username}/following/raw', [UserController::class, 'profileFollowingRaw']);
+  Route::get('/profile/{user:username}/raw', [ProfileController::class, 'profileRaw']);
+  Route::get('/profile/{user:username}/followers/raw', [ProfileController::class, 'profileFollowersRaw']);
+  Route::get('/profile/{user:username}/following/raw', [ProfileController::class, 'profileFollowingRaw']);
 });
-
+// POST
+Route::post('/manage-avatar', [ProfileController::class, "storeAvatar"])->middleware('mustBeLoggedIn');
 
 /****** ADMIN-ONLY ROUTES ******/
 // GET
