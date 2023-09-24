@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 use App\Events\ChatMessage;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FollowController;
 
 /*
@@ -62,9 +63,7 @@ Route::middleware('cache.headers:public;max_age=20;etag')->group(function () {
 
 /****** ADMIN-ONLY ROUTES ******/
 // GET
-Route::get('admins-only', function () {
-  return 'admins only';
-})->middleware('can:visitAdminPages');
+Route::get('admins-only', [AdminController::class, 'adminsOnly'])->middleware('can:visitAdminPages');
 
 /****** CHAT ROUTES ******/
 // POST
